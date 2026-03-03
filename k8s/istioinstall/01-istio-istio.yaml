@@ -1,0 +1,7 @@
+apiVersion: sailoperator.io/v1
+kind: Istio
+metadata:
+  name: istio
+  namespace: istio-system
+spec:
+  profile: default

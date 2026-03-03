@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caller
+  namespace: grpc-mesh-demo
+  labels:
+    app: caller
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caller
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: caller
+        version: v1
+    spec:
+      containers:
+      - name: caller
+        image: quay.io/axodevelopment/grpc_caller:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: CALLEE_ADDR
+          value: callee:50051
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caller
+  namespace: grpc-mesh-demo
+  labels:
+    app: caller
+spec:
+  selector:
+    app: caller
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: caller
+  namespace: grpc-mesh-demo
+spec:
+  to:
+    kind: Service
+    name: caller
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None

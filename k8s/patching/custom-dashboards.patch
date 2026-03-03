@@ -1,0 +1,19 @@
+oc patch kiali kiali -n openshift-operators --type=merge -p '
+{
+  "spec": {
+    "external_services": {
+      "prometheus": {
+        "url": "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091",
+        "auth": { "type": "bearer", "use_kiali_token": true },
+        "thanos_proxy": { "enabled": true }
+      },
+      "custom_dashboards": {
+        "prometheus": {
+          "url": "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091",
+          "auth": { "type": "bearer", "use_kiali_token": true },
+          "thanos_proxy": { "enabled": true }
+        }
+      }
+    }
+  }
+}'

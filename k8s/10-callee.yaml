@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: callee
+  namespace: grpc-mesh-demo
+  labels:
+    app: callee
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: callee
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: callee
+        version: v1
+    spec:
+      containers:
+      - name: callee
+        image: quay.io/axodevelopment/grpc_callee:latest
+        ports:
+        - name: grpc
+          containerPort: 50051
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: callee
+  namespace: grpc-mesh-demo
+  labels:
+    app: callee
+spec:
+  selector:
+    app: callee
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: grpc
