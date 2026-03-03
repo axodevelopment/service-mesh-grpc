@@ -1,0 +1,22 @@
+FROM registry.access.redhat.com/ubi9/go-toolset:latest AS build
+WORKDIR /src
+
+COPY go.mod go.sum ./
+COPY gen ./gen
+COPY caller ./caller
+
+RUN go mod download
+
+RUN mkdir -p /tmp/out && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -o /tmp/out/caller ./caller
+
+
+FROM registry.access.redhat.com/ubi9/ubi-micro:latest
+
+WORKDIR /
+COPY --from=build /tmp/out/caller /caller
+
+USER 1001
+EXPOSE 8080
+ENTRYPOINT ["/caller"]
