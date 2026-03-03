@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package hello.v1;
-option go_package = "github.com/axodevelopment/grpc-mesh-grpc/gen/hello/v1;hellov1";
+option go_package = "github.com/axodevelopment/service-mesh-grpc/gen/hello/v1;hellov1";
 
 service HelloService {
   rpc SayHello(HelloRequest) returns (HelloReply) {}

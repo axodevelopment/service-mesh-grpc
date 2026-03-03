@@ -120,7 +120,7 @@ const file_hello_proto_rawDesc = "" +
 	"HelloReply\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage2J\n" +
 	"\fHelloService\x12:\n" +
-	"\bSayHello\x12\x16.hello.v1.HelloRequest\x1a\x14.hello.v1.HelloReply\"\x00B?Z=github.com/axodevelopment/grpc-mesh-grpc/gen/hello/v1;hellov1b\x06proto3"
+	"\bSayHello\x12\x16.hello.v1.HelloRequest\x1a\x14.hello.v1.HelloReply\"\x00BBZ@github.com/axodevelopment/service-mesh-grpc/gen/hello/v1;hellov1b\x06proto3"
 
 var (
 	file_hello_proto_rawDescOnce sync.Once
