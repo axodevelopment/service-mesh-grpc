@@ -11,15 +11,13 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	pb "github.com/axodevelopment/grpc-mesh-grpc/gen/hello/v1"
+	pb "github.com/axodevelopment/service-mesh-grpc/gen/hello/v1"
 )
 
 func main() {
 	target := getenv("CALLEE_ADDR", "callee:50051")
 	httpPort := getenv("HTTP_PORT", "8080")
 
-	// NOTE: App uses plaintext gRPC to Service DNS.
-	// Mesh sidecars handle mTLS between proxies (no app code change). :contentReference[oaicite:4]{index=4}
 	conn, err := grpc.Dial(target, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("dial: %v", err)

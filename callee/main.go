@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	pb "github.com/axodevelopment/grpc-mesh-grpc/gen/hello/v1"
+	pb "github.com/axodevelopment/service-mesh-grpc/gen/hello/v1"
 )
 
 type server struct {
@@ -19,15 +19,13 @@ type server struct {
 	pod string
 }
 
-func (s *server) SayHello(ctx context.Context, req *pb.HellowRequest) (*pb.HelloReply, error) {
+func (s *server) SayHello(ctx context.Context, req *pb.HelloRequest) (*pb.HelloReply, error) {
 	msg := fmt.Sprintf("hello %q from callee pod=%s time=%s", req.GetName(), s.pod, time.Now().Format(time.RFC3339))
 	log.Printf("SayHello: %s", msg)
 	return &pb.HelloReply{Message: msg}, nil
 }
 
 func main() {
-	fmt.Println("Starting callee app...")
-
 	port := getenv("PORT", "50051")
 	pod := getenv("POD_NAME", "unknown")
 
