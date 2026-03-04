@@ -1,0 +1,4 @@
+oc label ns grpc-mesh-demo openshift.io/user-monitoring=true --overwrite
+
+oc label ns istio-system openshift.io/user-monitoring=true --overwrite
+
