@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: callee-grpc
+  namespace: grpc-mesh-demo
+spec:
+  hosts:
+  - callee.grpc-mesh-demo.svc.cluster.local
+  http:
+  - match:
+    - headers:
+        content-type:
+          prefix: "application/grpc"
+    route:
+    - destination:
+        host: callee.grpc-mesh-demo.svc.cluster.local
+        subset: v1
+        port:
+          number: 50051
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: caller-vs
+  namespace: grpc-mesh-demo
+spec:
+  hosts:
+  - route-purple-jellyfish-grpc-mesh-demo.apps.snoaxolab.axodevelopment.dev
+  gateways:
+  - public-gw
+  http:
+  - match:
+    - uri:
+        prefix: /call
+    route:
+    - destination:
+        host: caller.grpc-mesh-demo.svc.cluster.local
+        port:
+          number: 8080

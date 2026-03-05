@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: callee
+  namespace: grpc-mesh-demo
+  labels:
+    app: callee
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: callee
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: callee
+        version: v1
+    spec:
+      containers:
+      - name: callee
+        image: quay.io/axodevelopment/grpc_callee:latest
+        ports:
+        - name: grpc
+          containerPort: 50051
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caller
+  namespace: grpc-mesh-demo
+  labels:
+    app: caller
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caller
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: caller
+        version: v1
+    spec:
+      containers:
+      - name: caller
+        image: quay.io/axodevelopment/grpc_caller:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: CALLEE_ADDR
+          value: callee:50051
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
