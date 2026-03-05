@@ -1,0 +1,10 @@
+apiVersion: sailoperator.io/v1
+kind: ZTunnel
+metadata:
+  name: default
+spec:
+  version: v1.27.3
+  namespace: ztunnel
+  values:
+    ztunnel:
+      xdsAddress: istiod-istio.istio-system.svc:15012

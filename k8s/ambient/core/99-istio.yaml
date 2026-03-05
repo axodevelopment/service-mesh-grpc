@@ -1,7 +1,7 @@
-apiVersion: sailoperator.io/v1alpha1
+apiVersion: sailoperator.io/v1
 kind: Istio
 metadata:
-  name: default
+  name: istio
 spec:
   version: v1.27.5
   namespace: istio-system
