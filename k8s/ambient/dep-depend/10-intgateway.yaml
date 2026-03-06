@@ -4,7 +4,7 @@ metadata:
   name: grpc-mesh-waypoint
   namespace: grpc-mesh-demo
   labels:
-    istio.io/waypoint-for: service
+    istio.io/waypoint-for: all
 spec:
   gatewayClassName: istio-waypoint
   listeners:

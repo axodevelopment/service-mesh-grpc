@@ -5,4 +5,5 @@ metadata:
   labels:
     istio.io/dataplane-mode: ambient
     istio.io/use-waypoint: grpc-mesh-waypoint
-    istio-discovery: enabled 
+    istio-discovery: enabled
+    openshift.io/user-monitoring: "true"

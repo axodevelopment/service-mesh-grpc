@@ -4,6 +4,7 @@ metadata:
   name: istio-system
   labels:
     istio-discovery: enabled
+    openshift.io/user-monitoring: "true"
 ---
 apiVersion: v1
 kind: Namespace
@@ -11,6 +12,7 @@ metadata:
   name: istio-cni
   labels:
     istio-discovery: enabled
+    openshift.io/user-monitoring: "true"
 ---
 apiVersion: v1
 kind: Namespace
@@ -18,3 +20,4 @@ metadata:
   name: ztunnel
   labels:
     istio-discovery: enabled
+    openshift.io/user-monitoring: "true"
