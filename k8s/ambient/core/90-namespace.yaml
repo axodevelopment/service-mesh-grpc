@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: grpc-mesh-demo
+  labels:
+    istio.io/dataplane-mode: ambient
+    istio.io/use-waypoint: grpc-mesh-waypoint
+    istio-discovery: enabled 

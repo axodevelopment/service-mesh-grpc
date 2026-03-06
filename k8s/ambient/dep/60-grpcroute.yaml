@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: callee-waypoint-route
+  namespace: grpc-mesh-demo
+spec:
+  parentRefs:
+  - group: ""
+    kind: Service
+    name: callee
+    namespace: grpc-mesh-demo
+  rules:
+  - backendRefs:
+    - name: callee
+      port: 50051

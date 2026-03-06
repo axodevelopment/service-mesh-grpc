@@ -59,7 +59,3 @@ spec:
         env:
         - name: CALLEE_ADDR
           value: callee:50051
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: http

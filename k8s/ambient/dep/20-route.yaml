@@ -1,14 +1,15 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: caller
+  name: public-gw
   namespace: grpc-mesh-demo
 spec:
+  host: route-purple-jellyfish-grpc-mesh-demo.apps.snoaxolab.axodevelopment.dev
+  port:
+    targetPort: 80
   to:
     kind: Service
-    name: caller
-  port:
-    targetPort: http
+    name: public-gw-istio
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Allow

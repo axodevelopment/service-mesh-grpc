@@ -1,12 +1,14 @@
 apiVersion: sailoperator.io/v1
 kind: Istio
 metadata:
-  name: istio
+  name: default
 spec:
-  version: v1.27.5
   namespace: istio-system
   profile: ambient
   values:
     pilot:
-      env:
-        PILOT_ENABLE_AMBIENT: "true"
+      trustedZtunnelNamespace: ztunnel
+    meshConfig:
+      discoverySelectors:
+      - matchLabels:
+          istio-discovery: enabled

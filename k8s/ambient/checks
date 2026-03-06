@@ -1,0 +1,3 @@
+
+
+oc get istiorevision istio -o jsonpath='{.spec}' | python3 -m json.tool
